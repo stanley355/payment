@@ -8,8 +8,9 @@ export class InvoiceService {
     
     const x = new Xendit({
       secretKey:
-        'xnd_public_development_YvPpAdUI5nQhtxQ1n3SznBFLyysQjMnpIDjnFqI0OQ2BZAdvr7SDAgtHHsDDvuSK',
+        process.env.XENDIT_KEY
     });
+
     const { Invoice } = x;
     const invoiceSpecificOptions = {};
     const i = new Invoice(invoiceSpecificOptions);
