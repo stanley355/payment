@@ -26,7 +26,8 @@
     "@nestjs/platform-express": "^9.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.5.7"
+    "rxjs": "^7.5.7",
+    "xendit-node": "^1.21.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
