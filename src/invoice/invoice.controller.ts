@@ -1,4 +1,15 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
+import { InvoiceService } from './invoice.service';
+import { CreateInvoiceDto } from './dto/createInvoiceDto';
 
 @Controller('invoice')
-export class InvoiceController {}
+export class InvoiceController {
+  constructor(private invoiceService: InvoiceService) {}
+
+  @Post()
+  async createInvoice(
+    @Body() createInvoiceDto: CreateInvoiceDto,
+  ): Promise<any> {
+    return await this.invoiceService.create(createInvoiceDto);
+  }
+}
