@@ -4,18 +4,26 @@ const Xendit = require('xendit-node');
 
 @Injectable()
 export class InvoiceService {
-  async create(payload: CreateInvoiceDto): Promise<any> {
-    
+  initXenditInvoice(): any {
     const x = new Xendit({
-      secretKey:
-        process.env.XENDIT_KEY
+      secretKey: process.env.XENDIT_KEY,
     });
 
     const { Invoice } = x;
     const invoiceSpecificOptions = {};
-    const i = new Invoice(invoiceSpecificOptions);
+    return new Invoice(invoiceSpecificOptions);
+  }
 
-    const resp = await i.createInvoice({ ...payload, shouldSendEmail: true });
+  async create(payload: CreateInvoiceDto): Promise<any> {
+    const xenditInvoice = this.initXenditInvoice();
+    const resp = await xenditInvoice.createInvoice({ ...payload, shouldSendEmail: true });
+
+    return resp;
+  }
+
+  async expire(invoiceID: string): Promise<any> {
+    const xenditInvoice = this.initXenditInvoice();
+    const resp = await xenditInvoice.expireInvoice({ invoiceID });
 
     return resp;
   }
