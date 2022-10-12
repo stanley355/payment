@@ -3,5 +3,4 @@ export interface CreateInvoiceDto {
   payerEmail: string;
   description: string;
   amount: number;
-  forUserID: string;
 }

@@ -2,7 +2,7 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { InvoiceService } from './invoice.service';
 import { CreateInvoiceDto } from './dto/createInvoiceDto';
 
-@Controller('invoice')
+@Controller('v1/invoice')
 export class InvoiceController {
   constructor(private invoiceService: InvoiceService) {}
 
