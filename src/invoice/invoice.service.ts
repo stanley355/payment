@@ -27,4 +27,11 @@ export class InvoiceService {
 
     return resp;
   }
+
+  async view(invoiceID: string) : Promise<any> {
+    const xenditInvoice = this.initXenditInvoice();
+    const resp = await xenditInvoice.getInvoice({ invoiceID });
+
+    return resp;
+  }
 }

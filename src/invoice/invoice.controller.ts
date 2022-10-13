@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Query } from '@nestjs/common';
+import { Controller, Post, Body, Query, Get } from '@nestjs/common';
 import { InvoiceService } from './invoice.service';
 import { CreateInvoiceDto } from './dto/createInvoiceDto';
 
@@ -18,5 +18,12 @@ export class InvoiceController {
     @Query('invoiceID') invoiceID: string ,
   ): Promise<any> {
     return await this.invoiceService.expire(invoiceID);
+  }
+
+  @Get()
+  async viewInvoice(
+    @Query('invoiceID') invoiceID: string ,
+  ): Promise<any> {
+    return await this.invoiceService.view(invoiceID);
   }
 }
