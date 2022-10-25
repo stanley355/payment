@@ -1,5 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
   imports: [
@@ -11,7 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [],
-      synchronize: true,
+      synchronize: false,
     }),
   ],
 })
