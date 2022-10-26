@@ -15,6 +15,10 @@ export class BalanceService {
     return this.balanceRepository.find();
   }
 
+  async findOne(userID: string): Promise<Balance> {
+    return await this.balanceRepository.findOneBy({ user_id: userID });
+  }
+
   async create(payload:CreateBalanceDto) {
     return this.balanceRepository.insert({
       user_id: payload.userID,
