@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Balance } from 'src/balance/balance.entity';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -13,7 +14,8 @@ dotenv.config();
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [],
+      entities: [Balance],
+      autoLoadEntities: true,
       synchronize: false,
     }),
   ],

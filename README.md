@@ -1,3 +1,11 @@
+## Migration
+- Create entity
+- Import entity to `./src/db/typeorm.config.ts`
+- run `yarn migrate-generate ./migrations/${entity-name}`
+- Import migration file to `./src/db/typeorm.config.ts`
+- run `yarn migrate-run`
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
