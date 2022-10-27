@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Body, Query, UseGuards } from '@nestjs/common';
-import { JwtGuard } from 'src/auth/jwt.guard';
+import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { BalanceService } from './balance.service';
 import { CreateBalanceDto } from './dto/createBalanceDto';
 
@@ -7,7 +6,6 @@ import { CreateBalanceDto } from './dto/createBalanceDto';
 export class BalanceController {
   constructor(private balanceService: BalanceService) {}
 
-  @UseGuards(JwtGuard)
   @Get()
   async viewAllBalance(): Promise<any> {
     return await this.balanceService.findAll();
