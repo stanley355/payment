@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Put } from '@nestjs/common';
 import { BalanceService } from './balance.service';
 import { CreateBalanceDto } from './dto/createBalanceDto';
+import { UpdateBalanceDto } from './dto/updateBalanceDto';
 
 @Controller('v1/balance')
 export class BalanceController {
@@ -27,5 +28,12 @@ export class BalanceController {
     }
 
     return await this.balanceService.create(createBalanceDto);
+  }
+
+  @Put('/channel')
+  async updateBalanceChannel(
+    @Body() updateBalanceDto: UpdateBalanceDto,
+  ): Promise<any> {
+    return await this.balanceService.updateBalanceChannel(updateBalanceDto);
   }
 }

@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Balance } from './balance.entity';
 import { CreateBalanceDto } from './dto/createBalanceDto';
+import { UpdateBalanceDto } from './dto/updateBalanceDto';
 
 @Injectable()
 export class BalanceService {
@@ -19,10 +20,21 @@ export class BalanceService {
     return await this.balanceRepository.findOneBy({ user_id: userID });
   }
 
-  async create(payload:CreateBalanceDto) {
+  async create(payload: CreateBalanceDto) {
     return this.balanceRepository.insert({
       user_id: payload.userID,
-      user_name: payload.userName
-    })
+      user_name: payload.userName,
+    });
+  }
+
+  async updateBalanceChannel(payload: UpdateBalanceDto) {
+    // executes UPDATE user SET payload WHERE id = id
+    return this.balanceRepository.update(
+      { user_id: payload.userID },
+      {
+        channel_id: payload.channelID,
+        channel_name: payload.channelName,
+      },
+    );
   }
 }
