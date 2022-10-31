@@ -37,4 +37,14 @@ export class BalanceService {
       },
     );
   }
+
+  async updateBalanceBankAccount(payload:UpdateBalanceDto ) {
+    return this.balanceRepository.update(
+      { user_id: payload.userID },
+      {
+        bank_name: payload.bankName,
+        account_number: payload.bankAccount,
+      },
+    );
+  }
 }

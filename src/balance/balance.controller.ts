@@ -36,4 +36,12 @@ export class BalanceController {
   ): Promise<any> {
     return await this.balanceService.updateBalanceChannel(updateBalanceDto);
   }
+
+
+  @Put('/bank')
+  async updateBalanceBankAccount(
+    @Body() updateBalanceDto: UpdateBalanceDto,
+  ): Promise<any> {
+    return await this.balanceService.updateBalanceBankAccount(updateBalanceDto);
+  }
 }
