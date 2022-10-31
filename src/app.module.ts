@@ -6,9 +6,10 @@ import { InvoiceModule } from './invoice/invoice.module';
 import { BalanceModule } from './balance/balance.module';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { DbModule } from './db/db.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
-  imports: [InvoiceModule, ConfigModule.forRoot(), BalanceModule, DbModule],
+  imports: [InvoiceModule, ConfigModule.forRoot(), BalanceModule, DbModule, PaymentModule],
   controllers: [AppController],
   providers: [AppService],
 })
