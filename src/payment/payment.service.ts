@@ -34,4 +34,16 @@ export class PaymentService {
       platform_fee: platformFee,
     });
   }
+
+  async findOneBySubscriber(subscriberID: string): Promise<Payment> {
+    return await this.paymentReposistory.findOneBy({
+      subscriber_id: subscriberID,
+    });
+  }
+
+  async findBySubscriber(subscriberID: string): Promise<Payment[]> {
+    return await this.paymentReposistory.findBy({
+      subscriber_id: subscriberID,
+    });
+  }
 }

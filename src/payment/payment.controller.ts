@@ -1,8 +1,8 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dto/CreatePaymentDto';
 
-@Controller('payment')
+@Controller('v1/payment')
 export class PaymentController {
   constructor(private paymentService: PaymentService) {}
 
@@ -11,5 +11,10 @@ export class PaymentController {
     @Body() createPaymentDto: CreatePaymentDto,
   ): Promise<any> {
     return await this.paymentService.create(createPaymentDto);
+  }
+
+  @Get('/subscibers')
+  async viewPayments(@Query('subscriberID') subscriberID): Promise<any> {
+    return await this.paymentService.findBySubscriber(subscriberID);
   }
 }
