@@ -20,6 +20,10 @@ export class BalanceService {
     return await this.balanceRepository.findOneBy({ user_id: userID });
   }
 
+  async findOneByChannel(channelID: number): Promise<Balance> {
+    return await this.balanceRepository.findOneBy({ channel_id: channelID });
+  }
+
   async create(payload: CreateBalanceDto) {
     return this.balanceRepository.insert({
       user_id: payload.userID,
@@ -38,7 +42,7 @@ export class BalanceService {
     );
   }
 
-  async updateBalanceBankAccount(payload:UpdateBalanceDto ) {
+  async updateBalanceBankAccount(payload: UpdateBalanceDto) {
     return this.balanceRepository.update(
       { user_id: payload.userID },
       {
