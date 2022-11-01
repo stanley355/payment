@@ -51,4 +51,13 @@ export class BalanceService {
       },
     );
   }
+
+  async updateBalanceAmount(balanceID: string, profitAmount: number) {
+    return this.balanceRepository
+      .createQueryBuilder()
+      .update(Balance)
+      .where({ id: balanceID })
+      .set({ amount: () => `amount + ${profitAmount}` })
+      .execute();
+  }
 }
