@@ -12,11 +12,7 @@ export class BalanceService {
     private balanceRepository: Repository<Balance>,
   ) {}
 
-  async findAll(): Promise<Balance[]> {
-    return this.balanceRepository.find();
-  }
-
-  async findOne(userID: string): Promise<Balance> {
+  async findOne(userID: string) {
     return await this.balanceRepository.findOneBy({ user_id: userID });
   }
 
