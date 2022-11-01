@@ -18,9 +18,9 @@ export class BalanceController {
   ): Promise<any> {
     const balance = await this.balanceService.findOne(createBalanceDto.userID);
 
-    // if (balance && balance.id) {
-    //   return balance;
-    // }
+    if (balance && balance.id) {
+      return balance;
+    }
 
     return await this.balanceService.create(createBalanceDto);
   }

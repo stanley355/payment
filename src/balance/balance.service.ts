@@ -49,11 +49,13 @@ export class BalanceService {
   }
 
   async updateBalanceAmount(balanceID: string, profitAmount: number) {
-    return this.balanceRepository
-      .createQueryBuilder()
-      .update(Balance)
-      .where({ id: balanceID })
-      .set({ amount: () => `amount + ${profitAmount}` })
-      .execute();
+    const balance = await this.balanceRepository.findOneBy({ id: balanceID });
+
+    return this.balanceRepository.update(
+      { id: balanceID },
+      {
+        amount: balance.amount + profitAmount,
+      },
+    );
   }
 }
