@@ -1,6 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  CreateDateColumn,
+} from 'typeorm';
 import { Balance } from '../balance/balance.entity';
 
+// TODO: Add created at
 @Entity()
 export class Payment {
   @PrimaryGeneratedColumn('uuid')
@@ -8,6 +15,12 @@ export class Payment {
 
   @ManyToOne((type) => Balance, (balance) => balance.id)
   channel_balance_id: string;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  created_at: Date;
 
   @Column()
   channel_id: number;
