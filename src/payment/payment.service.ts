@@ -15,15 +15,15 @@ export class PaymentService {
   ) {}
 
   async create(payload: CreatePaymentDto) {
-    // const balance: any = await this.balanceService.findOneByChannel(
-    //   payload.channelID,
-    // );
+    const balance: any = await this.balanceService.findOneByChannel(
+      payload.channelID,
+    );
 
     const channelNetIncome = Math.floor(0.8 * payload.totalAmount);
     const platformFee = payload.totalAmount - channelNetIncome;
 
     return this.paymentReposistory.insert({
-      channel_balance_id: "",
+      channel_balance_id: balance.id,
       channel_id: payload.channelID,
       channel_name: payload.channelName,
       subscriber_id: payload.subscriberID,
