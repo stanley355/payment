@@ -45,15 +45,16 @@ export class PaymentService {
     }
   }
 
-  async findOneBySubscriber(subscriberID: string): Promise<Payment> {
-    return await this.paymentReposistory.findOneBy({
+  async findBySubscriber(subscriberID: string): Promise<Payment[]> {
+    return await this.paymentReposistory.findBy({
       subscriber_id: subscriberID,
     });
   }
 
-  async findBySubscriber(subscriberID: string): Promise<Payment[]> {
+  async findByChannel(channelID: number): Promise<Payment[]> {
+    console.log(222, channelID);
     return await this.paymentReposistory.findBy({
-      subscriber_id: subscriberID,
+      channel_id: channelID,
     });
   }
 }

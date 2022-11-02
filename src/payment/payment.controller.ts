@@ -13,8 +13,13 @@ export class PaymentController {
     return await this.paymentService.create(createPaymentDto);
   }
 
-  @Get('/subscibers')
-  async viewPayments(@Query('subscriberID') subscriberID): Promise<any> {
+  @Get('/channels')
+  async viewPaymentsByChannel(@Query('channelID') channelID: number): Promise<any> {
+    return await this.paymentService.findByChannel(channelID);
+  }
+
+  @Get('/subscribers')
+  async viewPaymentsBySubsribers(@Query('subscriberID') subscriberID: string): Promise<any> {
     return await this.paymentService.findBySubscriber(subscriberID);
   }
 }
