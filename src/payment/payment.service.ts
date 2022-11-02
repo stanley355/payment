@@ -52,7 +52,6 @@ export class PaymentService {
   }
 
   async findByChannel(channelID: number): Promise<Payment[]> {
-    console.log(222, channelID);
     return await this.paymentReposistory.findBy({
       channel_id: channelID,
     });
