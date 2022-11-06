@@ -6,5 +6,6 @@ export interface UpdateBalanceDto {
   channelName?: string;
   amount?: number;
   bankName?: string;
-  bankAccount?: string
+  bankAccount?: string;
+  accountHolderName?: string;
 }
