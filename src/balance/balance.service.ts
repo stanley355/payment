@@ -82,14 +82,16 @@ export class BalanceService {
   }
 
   async withdrawBalance(payload: UpdateBalanceDto) {
-    const balance = await this.balanceRepository.findOneBy({ user_id: payload.userID });
+    const balance = await this.balanceRepository.findOneBy({
+      user_id: payload.userID,
+    });
 
     if (balance.amount < payload.amount) {
       throw new HttpException('Insufficient Balance', 400);
     }
 
     const xenditBalance = await this.initXenditBalance().getBalance();
-    
+
     if (xenditBalance < payload.amount) {
       console.error('Xendit Cash insufficient Balance');
       throw new HttpException('Internal Server Error', 500);
@@ -98,11 +100,11 @@ export class BalanceService {
     const xenditDisbursement = this.initXenditDisbursement();
     const disbursement = await xenditDisbursement.create({
       externalID: `Withdrawal-${payload.userID}-${new Date().toISOString()}`,
-      amount: payload.amount,
+      amount: Number(payload.amount),
       bankCode: payload.bankName,
       accountHolderName: payload.accountHolderName.toUpperCase(),
       accountNumber: payload.bankAccount,
-      email_to: payload.userEmail,
+      email_to: [payload.userEmail],
       description: `${payload.userName} : Rp ${
         payload.amount
       } withdrawal on ${new Date().toString()} `,
