@@ -102,6 +102,7 @@ export class BalanceService {
       bankCode: payload.bankName,
       accountHolderName: payload.accountHolderName.toUpperCase(),
       accountNumber: payload.bankAccount,
+      email_to: payload.userEmail,
       description: `${payload.userName} : Rp ${
         payload.amount
       } withdrawal on ${new Date().toString()} `,
