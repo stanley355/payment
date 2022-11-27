@@ -58,17 +58,4 @@ export class BalanceService {
       },
     );
   }
-
-  async withdrawBalance(payload: UpdateBalanceDto) {
-    const balance = await this.balanceRepository.findOneBy({
-      user_id: payload.userID,
-    });
-
-    if (balance.amount < payload.amount) {
-      throw new HttpException('Insufficient Balance', 400);
-    }
-
-    // TODO: Connect with midtrans API
-    throw new HttpException('Cannot withdraw balance at the moment', 500);
-  }
 }
