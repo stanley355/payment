@@ -45,4 +45,7 @@ export class Payment {
 
   @Column()
   platform_fee: number;
+
+  @Column({nullable: true})
+  merchant: string;
 }
