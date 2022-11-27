@@ -69,5 +69,6 @@ export class BalanceService {
     }
 
     // TODO: Connect with midtrans API
+    throw new HttpException('Cannot withdraw balance at the moment', 500);
   }
 }
