@@ -50,6 +50,7 @@ export class Payment {
   merchant_payment_link: string;
 
   @Column({
+    nullable: true,
     default: 'PENDING'
   })
   status: string;

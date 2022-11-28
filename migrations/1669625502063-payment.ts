@@ -13,7 +13,7 @@ export class payment1669625502063 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "payment" ADD "expired_at" TIMESTAMP NOT NULL DEFAULT ('now'::text)::timestamp(0) with time zone`);
         await queryRunner.query(`ALTER TABLE "payment" ADD "merchant_order_id" character varying NOT NULL`);
         await queryRunner.query(`ALTER TABLE "payment" ADD "merchant_payment_link" character varying NOT NULL`);
-        await queryRunner.query(`ALTER TABLE "payment" ADD "status" character varying NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "payment" ADD "status" character varying NOT NULL DEFAULT 'PENDING'`);
         await queryRunner.query(`ALTER TABLE "payment" ADD "balanceId" uuid`);
         await queryRunner.query(`ALTER TABLE "payment" ALTER COLUMN "created_at" SET DEFAULT ('now'::text)::timestamp(0) with time zone`);
         await queryRunner.query(`ALTER TABLE "payment" ALTER COLUMN "merchant" SET NOT NULL`);

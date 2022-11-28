@@ -4,6 +4,6 @@ export interface CreatePaymentDto {
   subscriptionDuration: number;
   totalAmount: number;
   merchant: string;
-  merchant_order_id: string;
-  merchant_payment_link: string;
+  merchantOrderID: string;
+  merchantPaymentLink: string;
 }
