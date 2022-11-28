@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BalanceService } from '../balance/balance.service';
 import { CreatePaymentDto } from './dto/CreatePaymentDto';
+import { UpdatePaidPaymentDto } from './dto/UpdatePaymentDto';
 import { Payment } from './payment.entity';
 
 @Injectable()
@@ -19,7 +20,6 @@ export class PaymentService {
       payload.channelID,
     );
 
-
     const insertResult: any = await this.paymentReposistory.insert({
       balance: balance.id,
       channel_id: payload.channelID,
@@ -28,10 +28,25 @@ export class PaymentService {
       total_amount: payload.totalAmount,
       merchant: payload.merchant,
       merchant_order_id: payload.merchantOrderID,
-      merchant_payment_link: payload.merchantPaymentLink
+      merchant_payment_link: payload.merchantPaymentLink,
     });
 
     return insertResult;
+  }
+
+  async updatePaidPayment(payload: UpdatePaidPaymentDto) {
+    return this.paymentReposistory.update(
+      { id: payload.paymentID },
+      {
+        ...(payload.merchantOrderID && {
+          merchant_order_id: payload.merchantOrderID,
+        }),
+        ...(payload.merchantPaymentLink && {
+          merchant_payment_link: payload.merchantPaymentLink,
+        }),
+        status: 'PAID',
+      },
+    );
   }
 
   async findBySubscriber(subscriberID: string): Promise<Payment[]> {
