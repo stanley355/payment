@@ -23,15 +23,11 @@ export class PaymentService {
     const platformFee = payload.totalAmount - channelNetIncome;
 
     const insertResult: any = await this.paymentReposistory.insert({
-      channel_balance_id: balance.id,
+      balance: balance.id,
       channel_id: payload.channelID,
-      channel_name: payload.channelName,
       subscriber_id: payload.subscriberID,
-      subscriber_name: payload.subscriberName,
       subscription_duration: payload.subscriptionDuration,
       total_amount: payload.totalAmount,
-      channel_net_income: channelNetIncome,
-      platform_fee: platformFee,
     });
 
     if (insertResult.raw && insertResult.raw.length > 0) {

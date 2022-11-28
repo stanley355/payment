@@ -14,25 +14,25 @@ export class Payment {
   id: string;
 
   @ManyToOne((type) => Balance, (balance) => balance.id)
-  channel_balance_id: string;
+  balance: string;
 
   @CreateDateColumn({
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
+    default: () => 'CURRENT_TIMESTAMP(0)',
   })
   created_at: Date;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
+  })
+  expired_at: Date;
 
   @Column()
   channel_id: number;
 
-  @Column()
-  channel_name: string;
-
   @Column('uuid')
   subscriber_id: string;
-
-  @Column()
-  subscriber_name: string;
 
   @Column()
   subscription_duration: number;
@@ -41,11 +41,14 @@ export class Payment {
   total_amount: number;
 
   @Column()
-  channel_net_income: number;
+  merchant: string;
 
   @Column()
-  platform_fee: number;
+  merchant_order_id: string;
 
-  @Column({nullable: true})
-  merchant: string;
+  @Column()
+  merchant_payment_link: string;
+
+  @Column()
+  status: string;
 }
