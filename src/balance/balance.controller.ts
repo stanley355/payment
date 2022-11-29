@@ -25,13 +25,6 @@ export class BalanceController {
     return await this.balanceService.create(createBalanceDto);
   }
 
-  @Put()
-  async withdrawBalance(
-    @Body() withdrawBalanceDto: UpdateBalanceDto
-  ): Promise<any> {
-    return await this.balanceService.withdrawBalance(withdrawBalanceDto);
-  }
-
   @Put('/channel')
   async updateBalanceChannel(
     @Body() updateBalanceDto: UpdateBalanceDto,

@@ -2,14 +2,13 @@ import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { InvoiceModule } from './invoice/invoice.module';
 import { BalanceModule } from './balance/balance.module';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { DbModule } from './db/db.module';
 import { PaymentModule } from './payment/payment.module';
 
 @Module({
-  imports: [InvoiceModule, ConfigModule.forRoot(), BalanceModule, DbModule, PaymentModule],
+  imports: [ConfigModule.forRoot(), BalanceModule, DbModule, PaymentModule],
   controllers: [AppController],
   providers: [AppService],
 })
