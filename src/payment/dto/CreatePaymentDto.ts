@@ -3,7 +3,7 @@ export interface CreatePaymentDto {
   subscriberID: string;
   subscriptionDuration: number;
   totalAmount: number;
-  merchant: string;
+  merchant: 'MIDTRANS' | 'KONTENKU';
   merchantOrderID: string;
   merchantPaymentLink: string;
 }
