@@ -48,7 +48,7 @@ export class BalanceService {
     );
   }
 
-  async updateBalanceAmount(balanceID: string, profitAmount: number) {
+  async increaseBalanceAmount(balanceID: string, profitAmount: number) {
     const balance = await this.balanceRepository.findOneBy({ id: balanceID });
 
     return this.balanceRepository.update(
