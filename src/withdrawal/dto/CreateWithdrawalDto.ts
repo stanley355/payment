@@ -5,5 +5,4 @@ export interface CreateWithdrawalDto {
   accountNumber: string;
   accountOwnerName: string;
   amount: number;
-  message?: string;
 }
