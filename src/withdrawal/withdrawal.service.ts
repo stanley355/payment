@@ -19,19 +19,30 @@ export class WithdrawalService {
     return await this.withdrawalRepo.findOneBy({ id: withdrawalID });
   }
 
-  async findPendingWithdrawalByBlance(balanceID: string) {
+  async findPendingWithdrawalByUser(userID: string) {
     return await this.withdrawalRepo.findOneBy({
-      balance: balanceID,
+      user_id: userID,
       status: 'IN_PROGRESS',
     });
   }
 
+  async findAllOngoingWithdrawal(): Promise<Withdrawal[]> {
+    return await this.withdrawalRepo.find({
+      where: {
+        status: 'IN_PROGRESS',
+      },
+      order: {
+        created_at: 'ASC',
+      },
+    });
+  }
+
   async create(payload: CreateWithdrawalDto) {
-    const pendingWithdrawal = await this.findPendingWithdrawalByBlance(
-      payload.balanceID,
+    const pendingWithdrawal = await this.findPendingWithdrawalByUser(
+      payload.userID,
     );
 
-    if (pendingWithdrawal) {
+    if (pendingWithdrawal && pendingWithdrawal.id) {
       throw new HttpException(
         'Hanya boleh ada 1 penarikan dalam progress',
         400,

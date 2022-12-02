@@ -1,4 +1,12 @@
-import { Controller, Post, Put, Body, HttpException } from '@nestjs/common';
+import {
+  Controller,
+  Query,
+  Get,
+  Post,
+  Put,
+  Body,
+  HttpException,
+} from '@nestjs/common';
 import { CreateWithdrawalDto } from './dto/CreateWithdrawalDto';
 import { UpdateWithdrawalDto } from './dto/UpdateWithdrawalDto';
 import { WithdrawalService } from './withdrawal.service';
@@ -6,6 +14,11 @@ import { WithdrawalService } from './withdrawal.service';
 @Controller('v2/withdrawal')
 export class WithdrawalController {
   constructor(private withdrawalService: WithdrawalService) {}
+
+  @Get('/ongoing')
+  async viewAllOngoinWithdrawal(): Promise<any> {
+    return await this.withdrawalService.findAllOngoingWithdrawal();
+  }
 
   @Post()
   async createWithdrawal(
