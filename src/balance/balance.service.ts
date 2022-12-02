@@ -48,14 +48,11 @@ export class BalanceService {
     );
   }
 
-  async updateBalanceAmount(balanceID: string, profitAmount: number) {
+  async reduceBalanceAmount(balanceID: string, amount: number) {
     const balance = await this.balanceRepository.findOneBy({ id: balanceID });
 
-    return this.balanceRepository.update(
-      { id: balanceID },
-      {
-        amount: balance.amount + profitAmount,
-      },
-    );
+    balance.amount = balance.amount - amount;
+
+    return this.balanceRepository.save(balance);
   }
 }
