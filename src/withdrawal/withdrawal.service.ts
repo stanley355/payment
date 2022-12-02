@@ -54,9 +54,10 @@ export class WithdrawalService {
     });
   }
 
-  async updateWithdrawal(payload: UpdateWithdrawalDto) {
+  async update(payload: UpdateWithdrawalDto) {
+    const withdrawal = await this.findOne(payload.withdrawalID);
+
     if (payload.status === 'SUCCESS') {
-      const withdrawal = await this.findOne(payload.withdrawalID);
       const balance = await this.balanceService.findOne(withdrawal.balance);
 
       if (balance.amount < withdrawal.amount) {
@@ -68,18 +69,16 @@ export class WithdrawalService {
         withdrawal.amount,
       );
 
-      if (!newBalance.affected) {
+      if (!newBalance.id) {
         throw new HttpException('Internal server error', 500);
       }
     }
 
-    return this.withdrawalRepo.update(
-      { id: payload.withdrawalID },
-      {
-        status: payload.status,
-        ...(payload.message && { message: payload.message }),
-      },
-    );
+    withdrawal.status = payload.status;
+    if (payload.message) {
+      withdrawal.message = payload.message;
+    }
+
+    return await this.withdrawalRepo.save(withdrawal);
   }
-  
 }
