@@ -21,4 +21,19 @@ export class WithdrawalService {
       amount: payload.amount
     });
   }
+
+  // async updatePaidPayment(payload: UpdatePaidPaymentDto) {
+  //   return this.paymentReposistory.update(
+  //     { id: payload.paymentID },
+  //     {
+  //       ...(payload.merchantOrderID && {
+  //         merchant_order_id: payload.merchantOrderID,
+  //       }),
+  //       ...(payload.merchantPaymentLink && {
+  //         merchant_payment_link: payload.merchantPaymentLink,
+  //       }),
+  //       status: 'PAID',
+  //     },
+  //   );
+  // }
 }
