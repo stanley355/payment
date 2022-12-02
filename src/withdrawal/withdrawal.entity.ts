@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   CreateDateColumn,
+  UpdateDateColumn
 } from 'typeorm';
 import { Balance } from '../balance/balance.entity';
 
@@ -21,6 +22,13 @@ export class Withdrawal {
   })
   created_at: Date;
 
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
+    onUpdate: 'CURRENT_TIMESTAMP(0)',
+  })
+  updated_at: Date;
+
   @Column('uuid')
   user_id: string;
 
@@ -29,6 +37,9 @@ export class Withdrawal {
 
   @Column()
   account_number: string;
+
+  @Column()
+  account_owner_name: string;
 
   @Column({ default: 0 })
   amount: number;
