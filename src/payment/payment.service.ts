@@ -52,6 +52,7 @@ export class PaymentService {
   async findBySubscriber(subscriberID: string): Promise<Payment[]> {
     return await this.paymentReposistory.findBy({
       subscriber_id: subscriberID,
+      status: "PAID"
     });
   }
 
