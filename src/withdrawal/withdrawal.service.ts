@@ -25,7 +25,7 @@ export class WithdrawalService {
         user_id: userID
       },
       order: {
-        created_at: 'ASC',
+        created_at: 'DESC',
       },
     });
   }
