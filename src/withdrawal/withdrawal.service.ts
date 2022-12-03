@@ -19,6 +19,17 @@ export class WithdrawalService {
     return await this.withdrawalRepo.findOneBy({ id: withdrawalID });
   }
 
+  async findAllWithdrawalByUser(userID: string) {
+    return await this.withdrawalRepo.find({
+      where: {
+        user_id: userID
+      },
+      order: {
+        created_at: 'ASC',
+      },
+    });
+  }
+
   async findPendingWithdrawalByUser(userID: string) {
     return await this.withdrawalRepo.findOneBy({
       user_id: userID,

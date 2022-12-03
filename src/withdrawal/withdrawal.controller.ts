@@ -20,6 +20,11 @@ export class WithdrawalController {
     return await this.withdrawalService.findAllOngoingWithdrawal();
   }
 
+  @Get()
+  async viewAllUserWithdrawal(@Query('userID') userID: string): Promise<any> {
+    return await this.withdrawalService.findAllWithdrawalByUser(userID);
+  }
+
   @Post()
   async createWithdrawal(
     @Body() createWithdrawalDto: CreateWithdrawalDto,
