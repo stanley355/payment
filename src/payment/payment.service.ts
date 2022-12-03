@@ -53,7 +53,6 @@ export class PaymentService {
     return await this.paymentReposistory.find({
       where: {
         subscriber_id: subscriberID,
-        status: "PAID"
       },
       order: {
         created_at: 'DESC',
@@ -62,8 +61,14 @@ export class PaymentService {
   }
 
   async findByChannel(channelID: number): Promise<Payment[]> {
-    return await this.paymentReposistory.findBy({
-      channel_id: channelID,
+    return await this.paymentReposistory.find({
+      where: {
+        channel_id: channelID,
+        status: "PAID"
+      },
+      order: {
+        created_at: 'DESC',
+      },
     });
   }
 }
