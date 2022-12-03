@@ -51,18 +51,22 @@ export class WithdrawalService {
 
     const balance = await this.balanceService.findOne(payload.userID);
 
-    if (balance.amount < payload.amount) {
-      throw new HttpException('Balance tidak mencukupi', 400);
-    }
+    if (balance && balance.id) {
+      if (balance.amount < payload.amount) {
+        throw new HttpException('Balance tidak mencukupi', 400);
+      }
 
-    return this.withdrawalRepo.insert({
-      balance: payload.balanceID,
-      user_id: payload.userID,
-      bank_name: payload.bankName,
-      account_number: payload.accountNumber,
-      account_owner_name: payload.accountOwnerName,
-      amount: payload.amount,
-    });
+      return this.withdrawalRepo.insert({
+        balance: balance.id,
+        user_id: payload.userID,
+        bank_name: payload.bankName,
+        account_number: payload.accountNumber,
+        account_owner_name: payload.accountOwnerName,
+        amount: payload.amount,
+      });
+    } else {
+      throw new HttpException('Internal Server Error', 500);
+    }
   }
 
   async update(payload: UpdateWithdrawalDto) {
