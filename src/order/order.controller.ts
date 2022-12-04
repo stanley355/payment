@@ -1,4 +1,4 @@
-import { Controller, Post, Body} from '@nestjs/common';
+import { Controller, Post, Body, Get, Query} from '@nestjs/common';
 import { ICreateOrder } from './dto/CreateOrderDto';
 import { OrderService } from './order.service';
 
@@ -11,5 +11,15 @@ export class OrderController {
     @Body() payload: ICreateOrder,
   ): Promise<any> {
     return await this.orderService.create(payload);
+  }
+
+  @Get()
+  async findOne(@Query('orderID') orderID: string): Promise<any> {
+    return await this.orderService.findOne(orderID);
+  }
+
+  @Get('subscriber')
+  async findAllBySubscriber(@Query('subsriberID') subsriberID: string): Promise<any> {
+    return await this.orderService.findAllBySubscriber(subsriberID);
   }
 }

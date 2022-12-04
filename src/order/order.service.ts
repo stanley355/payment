@@ -16,7 +16,15 @@ export class OrderService {
       channel_id: payload.channelID,
       subscriber_id: payload.subscriberID,
       subscription_duration: payload.subscriptionDuration,
-      amount: payload.amount
-    })
+      amount: payload.amount,
+    });
+  }
+
+  async findOne(orderID: string) {
+    return await this.orderRepo.findOneBy({ id: orderID });
+  }
+
+  async findAllBySubscriber(subscriberID: string) {
+    return await this.orderRepo.findBy({ subscriber_id: subscriberID});
   }
 }
