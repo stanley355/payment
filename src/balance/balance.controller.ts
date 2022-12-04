@@ -24,20 +24,4 @@ export class BalanceController {
 
     return await this.balanceService.create(createBalanceDto);
   }
-
-  @Put('/channel')
-  async updateBalanceChannel(
-    @Body() updateBalanceDto: UpdateBalanceDto,
-  ): Promise<any> {
-    return await this.balanceService.updateBalanceChannel(updateBalanceDto);
-  }
-
-
-  @Put('/bank')
-  async updateBalanceBankAccount(
-    @Body() updateBalanceDto: UpdateBalanceDto,
-  ): Promise<any> {
-    return await this.balanceService.updateBalanceBankAccount(updateBalanceDto);
-  }
-
 }

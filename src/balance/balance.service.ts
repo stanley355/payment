@@ -23,29 +23,7 @@ export class BalanceService {
   async create(payload: CreateBalanceDto) {
     return this.balanceRepository.insert({
       user_id: payload.userID,
-      user_name: payload.userName,
     });
-  }
-
-  async updateBalanceChannel(payload: UpdateBalanceDto) {
-    // executes UPDATE user SET payload WHERE id = id
-    return this.balanceRepository.update(
-      { user_id: payload.userID },
-      {
-        channel_id: payload.channelID,
-        channel_name: payload.channelName,
-      },
-    );
-  }
-
-  async updateBalanceBankAccount(payload: UpdateBalanceDto) {
-    return this.balanceRepository.update(
-      { user_id: payload.userID },
-      {
-        bank_name: payload.bankName,
-        account_number: payload.bankAccount,
-      },
-    );
   }
 
   async reduceBalanceAmount(balanceID: string, amount: number) {
