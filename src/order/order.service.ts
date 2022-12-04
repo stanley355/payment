@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ICreateOrder } from './dto/CreateOrderDto';
+import { IUpdateOrderMerchant } from './dto/UpdateOrderMerchant';
 import { Order } from './order.entity';
 
 @Injectable()
@@ -25,6 +26,18 @@ export class OrderService {
   }
 
   async findAllBySubscriber(subscriberID: string) {
-    return await this.orderRepo.findBy({ subscriber_id: subscriberID});
+    return await this.orderRepo.findBy({ subscriber_id: subscriberID });
+  }
+
+  async updateOrderMerchant(payload: IUpdateOrderMerchant) {
+    const order = await this.findOne(payload.orderID);
+
+    order.merchant = payload.merchant;
+    if (payload.merchantOrderID)
+      order.merchant_order_id = payload.merchantOrderID;
+    if (payload.merchantPaymentLink)
+      order.merchant_payment_link = payload.merchantPaymentLink;
+
+    return await this.orderRepo.save(order);
   }
 }
