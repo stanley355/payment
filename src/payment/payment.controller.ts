@@ -3,7 +3,7 @@ import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dto/CreatePaymentDto';
 import { UpdatePaidPaymentDto } from './dto/UpdatePaymentDto';
 
-@Controller('v2/payment')
+@Controller('/payment')
 export class PaymentController {
   constructor(private paymentService: PaymentService) {}
 

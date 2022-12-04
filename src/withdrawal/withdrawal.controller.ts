@@ -11,7 +11,7 @@ import { CreateWithdrawalDto } from './dto/CreateWithdrawalDto';
 import { UpdateWithdrawalDto } from './dto/UpdateWithdrawalDto';
 import { WithdrawalService } from './withdrawal.service';
 
-@Controller('v2/withdrawal')
+@Controller('/withdrawal')
 export class WithdrawalController {
   constructor(private withdrawalService: WithdrawalService) {}
 

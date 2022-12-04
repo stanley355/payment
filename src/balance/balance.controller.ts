@@ -3,7 +3,7 @@ import { BalanceService } from './balance.service';
 import { CreateBalanceDto } from './dto/createBalanceDto';
 import { UpdateBalanceDto } from './dto/updateBalanceDto';
 
-@Controller('v2/balance')
+@Controller('/balance')
 export class BalanceController {
   constructor(private balanceService: BalanceService) {}
 
