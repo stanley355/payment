@@ -47,10 +47,7 @@ export class OrderService {
       ...(payload.expiredAt && { expired_at: payload.expiredAt }),
     };
 
-    console.log(updated_order);
-
-    return ""
-    // return await this.orderRepo.save(updated_order);
+    return await this.orderRepo.save(updated_order);
   }
 
   async findCurrentChannelPendingOrder(
