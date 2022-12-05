@@ -32,13 +32,25 @@ export class OrderService {
   async updateOrderMerchant(payload: IUpdateOrderMerchant) {
     const order = await this.findOne(payload.orderID);
 
-    order.merchant = payload.merchant;
-    if (payload.merchantOrderID)
-      order.merchant_order_id = payload.merchantOrderID;
-    if (payload.merchantPaymentLink)
-      order.merchant_payment_link = payload.merchantPaymentLink;
+    const updated_order = {
+      ...order,
+      merchant: payload.merchant,
+      ...(payload.merchantOrderID && {
+        merchant_order_id: payload.merchantOrderID,
+      }),
+      ...(payload.merchantVAnumber && {
+        merchant_va_number: payload.merchantVAnumber,
+      }),
+      ...(payload.merchantVAnumber && {
+        merchant_payment_link: payload.merchantPaymentLink,
+      }),
+      ...(payload.expiredAt && { expired_at: payload.expiredAt }),
+    };
 
-    return await this.orderRepo.save(order);
+    console.log(updated_order);
+
+    return ""
+    // return await this.orderRepo.save(updated_order);
   }
 
   async findCurrentChannelPendingOrder(
@@ -49,7 +61,7 @@ export class OrderService {
       where: {
         channel_id: channelID,
         subscriber_id: subscriberID,
-        status: "PENDING",
+        status: 'PENDING',
       },
       order: {
         created_at: 'DESC',

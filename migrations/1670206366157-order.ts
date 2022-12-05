@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class order1670205393674 implements MigrationInterface {
-    name = 'order1670205393674'
+export class order1670206366157 implements MigrationInterface {
+    name = 'order1670206366157'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE "order" ADD "expired_at" TIMESTAMP DEFAULT ('now'::text)::timestamp(0) with time zone`);

@@ -3,4 +3,6 @@ export interface IUpdateOrderMerchant {
   merchant: "KONTENKU" | "DOKU";
   merchantOrderID?:string;
   merchantPaymentLink?:string;
+  merchantVAnumber?: string;
+  expiredAt?: string;
 }
