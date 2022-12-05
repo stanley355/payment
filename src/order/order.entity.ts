@@ -24,6 +24,13 @@ export class Order {
   })
   updated_at: Date;
 
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
+    nullable: true
+  })
+  expired_at: Date;
+
   @Column()
   channel_id: number;
 
@@ -47,4 +54,7 @@ export class Order {
 
   @Column({ default: 'PENDING' })
   status: string;
+
+  @Column({nullable: true})
+  merchant_va_number: string;
 }

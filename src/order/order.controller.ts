@@ -27,9 +27,20 @@ export class OrderController {
 
   @Get('subscriber')
   async findAllBySubscriber(
-    @Query('subsriberID') subsriberID: string,
+    @Query('subscriberID') subsriberID: string,
   ): Promise<any> {
     return await this.orderService.findAllBySubscriber(subsriberID);
+  }
+
+  @Get('/channel/pending')
+  async findCurrentChannelPendingOrder(
+    @Query('channelID') channelID: number,
+    @Query('subscriberID') subsriberID: string,
+  ): Promise<any> {
+    return await this.orderService.findCurrentChannelPendingOrder(
+      channelID,
+      subsriberID,
+    );
   }
 
   @Put()

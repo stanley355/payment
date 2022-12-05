@@ -40,4 +40,20 @@ export class OrderService {
 
     return await this.orderRepo.save(order);
   }
+
+  async findCurrentChannelPendingOrder(
+    channelID: number,
+    subscriberID: string,
+  ) {
+    return await this.orderRepo.find({
+      where: {
+        channel_id: channelID,
+        subscriber_id: subscriberID,
+        status: "PENDING",
+      },
+      order: {
+        created_at: 'DESC',
+      },
+    });
+  }
 }

@@ -11,6 +11,7 @@ import { withdrawal1669884382358 } from '../../migrations/1669884382358-withdraw
 import { withdrawal1669946007824 } from '../../migrations/1669946007824-withdrawal';
 import { balance1670142157831 } from '../../migrations/1670142157831-balance';
 import { order1670142990129 } from '../../migrations/1670142990129-order';
+import { order1670205393674 } from '../../migrations/1670205393674-order';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -31,6 +32,7 @@ export default new DataSource({
     withdrawal1669884382358,
     withdrawal1669946007824,
     balance1670142157831,
-    order1670142990129
+    order1670142990129,
+    order1670205393674
   ],
 });
