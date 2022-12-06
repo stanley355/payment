@@ -50,13 +50,12 @@ export class OrderService {
     return await this.orderRepo.save(updated_order);
   }
 
-
   async cancelOrder(orderID: string) {
     const order = await this.findOne(orderID);
 
     const updated_order = {
       ...order,
-      status: "CANCELLED"
+      status: 'CANCELLED',
     };
 
     return await this.orderRepo.save(updated_order);
@@ -67,11 +66,18 @@ export class OrderService {
     subscriberID: string,
   ) {
     return await this.orderRepo.find({
-      where: {
-        channel_id: channelID,
-        subscriber_id: subscriberID,
-        status: 'PENDING',
-      },
+      where: [
+        {
+          channel_id: channelID,
+          subscriber_id: subscriberID,
+          status: 'PENDING',
+        },
+        {
+          channel_id: channelID,
+          subscriber_id: subscriberID,
+          status: 'CANCELLED',
+        },
+      ],
       order: {
         created_at: 'DESC',
       },
