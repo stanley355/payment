@@ -53,4 +53,9 @@ export class OrderController {
     }
     return await this.orderService.updateOrderMerchant(payload);
   }
+
+  @Put('cancel')
+  async cancelOrder(@Query('orderID') orderID: string): Promise<any> {
+    return await this.orderService.cancelOrder(orderID);
+  }
 }

@@ -50,6 +50,18 @@ export class OrderService {
     return await this.orderRepo.save(updated_order);
   }
 
+
+  async cancelOrder(orderID: string) {
+    const order = await this.findOne(orderID);
+
+    const updated_order = {
+      ...order,
+      status: "CANCELLED"
+    };
+
+    return await this.orderRepo.save(updated_order);
+  }
+
   async findCurrentChannelPendingOrder(
     channelID: number,
     subscriberID: string,
