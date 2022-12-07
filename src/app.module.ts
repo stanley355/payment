@@ -7,9 +7,10 @@ import { AuthMiddleware } from './auth/auth.middleware';
 import { DbModule } from './db/db.module';
 import { PaymentModule } from './payment/payment.module';
 import { WithdrawalModule } from './withdrawal/withdrawal.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), BalanceModule, DbModule, PaymentModule, WithdrawalModule],
+  imports: [ConfigModule.forRoot(), BalanceModule, DbModule, PaymentModule, WithdrawalModule, OrderModule],
   controllers: [AppController],
   providers: [AppService],
 })
