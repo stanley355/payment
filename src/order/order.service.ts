@@ -104,8 +104,8 @@ export class OrderService {
     };
 
     const payment = await this.paymentService.createPayment(paymentPayload);
-    console.log(payment);
-    
+    console.log("Final", payment);
+
     const updated_order = {
       ...order,
       status: 'PAID',
