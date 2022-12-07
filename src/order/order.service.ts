@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ICreateOrder } from './dto/CreateOrderDto';
 import { IUpdateOrderMerchant } from './dto/UpdateOrderMerchant';
+import { PaymentService } from '../payment/payment.service';
 import { Order } from './order.entity';
 
 @Injectable()
@@ -10,6 +11,8 @@ export class OrderService {
   constructor(
     @InjectRepository(Order)
     private orderRepo: Repository<Order>,
+
+    private paymentService: PaymentService,
   ) {}
 
   async create(payload: ICreateOrder) {
@@ -94,6 +97,15 @@ export class OrderService {
   async updatePaidOrder(orderID: string) {
     const order = await this.findOne(orderID);
 
+    const paymentPayload = {
+      orderID: order.id,
+      channelID: order.channel_id,
+      totalAmount: order.amount,
+    };
+
+    const payment = await this.paymentService.createPayment(paymentPayload);
+    console.log(payment);
+    
     const updated_order = {
       ...order,
       status: 'PAID',

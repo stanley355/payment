@@ -15,7 +15,9 @@ export class PaymentService {
   ) {}
 
   async createPayment(payload: CreatePaymentDto) {
-    const balance = await this.balanceService.findOneByChannel(payload.channelID);
+    const balance = await this.balanceService.findOneByChannel(
+      payload.channelID,
+    );
 
     if (balance && balance.id) {
       const plaformFee = Math.floor(0.2 * payload.totalAmount); // 20% fee
@@ -26,12 +28,17 @@ export class PaymentService {
         channel_id: payload.channelID,
         total_amount: payload.totalAmount,
         net_amount: payload.totalAmount - plaformFee,
-        platform_fee: plaformFee
+        platform_fee: plaformFee,
       });
 
       if (payment && payment.id) {
-        await this.balanceService.increaseBalanceAmount(balance.id, payment.net_amount);
+        await this.balanceService.increaseBalanceAmount(
+          balance.id,
+          payment.net_amount,
+        );
       }
+
+      return payment;
     }
   }
 }
