@@ -32,5 +32,5 @@ export class Payment {
   net_amount: number;
 
   @Column()
-  platform_free:number;
+  platform_fee:number;
 }

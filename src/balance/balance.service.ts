@@ -26,11 +26,15 @@ export class BalanceService {
     });
   }
 
+  async increaseBalanceAmount(balanceID: string, amount: number) {
+    const balance = await this.balanceRepository.findOneBy({ id: balanceID });
+    balance.amount = balance.amount + amount;
+    return this.balanceRepository.save(balance);
+  }
+
   async reduceBalanceAmount(balanceID: string, amount: number) {
     const balance = await this.balanceRepository.findOneBy({ id: balanceID });
-
     balance.amount = balance.amount - amount;
-
     return this.balanceRepository.save(balance);
   }
 }
