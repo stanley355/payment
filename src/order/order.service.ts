@@ -52,9 +52,7 @@ export class OrderService {
     });
   }
 
-  async findSubscriberPendingOrder(
-    subscriberID: string,
-  ) {
+  async findSubscriberPendingOrder(subscriberID: string) {
     return await this.orderRepo.find({
       where: [
         {
@@ -93,6 +91,17 @@ export class OrderService {
     return await this.orderRepo.save(updated_order);
   }
 
+  async updatePaidOrder(orderID: string) {
+    const order = await this.findOne(orderID);
+
+    const updated_order = {
+      ...order,
+      status: 'PAID',
+    };
+
+    return await this.orderRepo.save(updated_order);
+  }
+
   async cancelOrder(orderID: string) {
     const order = await this.findOne(orderID);
 
@@ -103,5 +112,4 @@ export class OrderService {
 
     return await this.orderRepo.save(updated_order);
   }
-
 }
