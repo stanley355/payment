@@ -25,7 +25,7 @@ export class BalanceController {
   }
 
   @Put('channel') 
-  async updateBalanceChannel(body: UpdateBalanceChannelDto): Promise<any> {
+  async updateBalanceChannel(@Body() body: UpdateBalanceChannelDto): Promise<any> {
     return await this.balanceService.updateBalanceChannel(body);
   }
 }

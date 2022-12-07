@@ -103,8 +103,7 @@ export class OrderService {
       totalAmount: order.amount,
     };
 
-    const payment = await this.paymentService.createPayment(paymentPayload);
-    console.log("Final", payment);
+    await this.paymentService.createPayment(paymentPayload);
 
     const updated_order = {
       ...order,
