@@ -29,6 +29,49 @@ export class OrderService {
     return await this.orderRepo.findBy({ subscriber_id: subscriberID });
   }
 
+  async findCurrentChannelPendingOrder(
+    channelID: number,
+    subscriberID: string,
+  ) {
+    return await this.orderRepo.find({
+      where: [
+        {
+          channel_id: channelID,
+          subscriber_id: subscriberID,
+          status: 'PENDING',
+        },
+        {
+          channel_id: channelID,
+          subscriber_id: subscriberID,
+          status: 'CANCELLED',
+        },
+      ],
+      order: {
+        created_at: 'DESC',
+      },
+    });
+  }
+
+  async findSubscriberPendingOrder(
+    subscriberID: string,
+  ) {
+    return await this.orderRepo.find({
+      where: [
+        {
+          subscriber_id: subscriberID,
+          status: 'PENDING',
+        },
+        {
+          subscriber_id: subscriberID,
+          status: 'CANCELLED',
+        },
+      ],
+      order: {
+        created_at: 'DESC',
+      },
+    });
+  }
+
   async updateOrderMerchant(payload: IUpdateOrderMerchant) {
     const order = await this.findOne(payload.orderID);
 
@@ -61,26 +104,4 @@ export class OrderService {
     return await this.orderRepo.save(updated_order);
   }
 
-  async findCurrentChannelPendingOrder(
-    channelID: number,
-    subscriberID: string,
-  ) {
-    return await this.orderRepo.find({
-      where: [
-        {
-          channel_id: channelID,
-          subscriber_id: subscriberID,
-          status: 'PENDING',
-        },
-        {
-          channel_id: channelID,
-          subscriber_id: subscriberID,
-          status: 'CANCELLED',
-        },
-      ],
-      order: {
-        created_at: 'DESC',
-      },
-    });
-  }
 }
