@@ -3,72 +3,42 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BalanceService } from '../balance/balance.service';
 import { CreatePaymentDto } from './dto/CreatePaymentDto';
-import { UpdatePaidPaymentDto } from './dto/UpdatePaymentDto';
 import { Payment } from './payment.entity';
 
 @Injectable()
 export class PaymentService {
   constructor(
     @InjectRepository(Payment)
-    private paymentReposistory: Repository<Payment>,
+    private paymentRepo: Repository<Payment>,
 
     private balanceService: BalanceService,
   ) {}
 
-  async create(payload: CreatePaymentDto) {
-    const balance: any = await this.balanceService.findOneByChannel(
+  async createPayment(payload: CreatePaymentDto) {
+    const balance = await this.balanceService.findOneByChannel(
       payload.channelID,
     );
 
-    const insertResult: any = await this.paymentReposistory.insert({
-      balance: balance.id,
-      channel_id: payload.channelID,
-      subscriber_id: payload.subscriberID,
-      subscription_duration: payload.subscriptionDuration,
-      total_amount: payload.totalAmount,
-      merchant: payload.merchant,
-      merchant_order_id: payload.merchantOrderID,
-      merchant_payment_link: payload.merchantPaymentLink,
-    });
+    if (balance && balance.id) {
+      const plaformFee = Math.floor(0.2 * payload.totalAmount); // 20% fee
 
-    return insertResult;
-  }
+      const payment = await this.paymentRepo.save({
+        order_id: payload.orderID,
+        balance_id: balance.id,
+        channel_id: payload.channelID,
+        total_amount: payload.totalAmount,
+        net_amount: payload.totalAmount - plaformFee,
+        platform_fee: plaformFee,
+      });
 
-  async updatePaidPayment(payload: UpdatePaidPaymentDto) {
-    return this.paymentReposistory.update(
-      { id: payload.paymentID },
-      {
-        ...(payload.merchantOrderID && {
-          merchant_order_id: payload.merchantOrderID,
-        }),
-        ...(payload.merchantPaymentLink && {
-          merchant_payment_link: payload.merchantPaymentLink,
-        }),
-        status: 'PAID',
-      },
-    );
-  }
+      if (payment && payment.id) {
+        await this.balanceService.increaseBalanceAmount(
+          balance.id,
+          payment.net_amount,
+        );
+      }
 
-  async findBySubscriber(subscriberID: string): Promise<Payment[]> {
-    return await this.paymentReposistory.find({
-      where: {
-        subscriber_id: subscriberID,
-      },
-      order: {
-        created_at: 'DESC',
-      },
-    });
-  }
-
-  async findByChannel(channelID: number): Promise<Payment[]> {
-    return await this.paymentReposistory.find({
-      where: {
-        channel_id: channelID,
-        status: "PAID"
-      },
-      order: {
-        created_at: 'DESC',
-      },
-    });
+      return payment;
+    }
   }
 }

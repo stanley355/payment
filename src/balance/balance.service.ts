@@ -26,11 +26,21 @@ export class BalanceService {
     });
   }
 
+  async updateBalanceChannel(payload: UpdateBalanceChannelDto) {
+    const balance = await this.findOne(payload.userID);
+    balance.channel_id = payload.channelID;
+    return await this.balanceRepository.save(balance);
+  }
+
+  async increaseBalanceAmount(balanceID: string, amount: number) {
+    const balance = await this.balanceRepository.findOneBy({ id: balanceID });
+    balance.amount = balance.amount + amount;
+    return this.balanceRepository.save(balance);
+  }
+
   async reduceBalanceAmount(balanceID: string, amount: number) {
     const balance = await this.balanceRepository.findOneBy({ id: balanceID });
-
     balance.amount = balance.amount - amount;
-
     return this.balanceRepository.save(balance);
   }
 }

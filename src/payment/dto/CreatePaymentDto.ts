@@ -1,9 +1,5 @@
 export interface CreatePaymentDto {
+  orderID: string;
   channelID: number;
-  subscriberID: string;
-  subscriptionDuration: number;
   totalAmount: number;
-  merchant: 'MIDTRANS' | 'KONTENKU';
-  merchantOrderID: string;
-  merchantPaymentLink: string;
 }
