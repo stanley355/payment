@@ -25,6 +25,11 @@ export class OrderController {
     return await this.orderService.findOne(orderID);
   }
 
+  @Get()
+  async findAllConfirmingOrder(): Promise<any> {
+    return await this.orderService.findAllConfirmingOrder();
+  }
+
   @Get('subscriber')
   async findAllBySubscriber(
     @Query('subscriberID') subscriberID: string,

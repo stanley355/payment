@@ -32,6 +32,10 @@ export class OrderService {
     return await this.orderRepo.findBy({ subscriber_id: subscriberID });
   }
 
+  async findAllConfirmingOrder() {
+    return await this.orderRepo.findBy({ status: 'CONFIRMING' });
+  }
+
   async findCurrentChannelPendingOrder(
     channelID: number,
     subscriberID: string,
