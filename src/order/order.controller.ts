@@ -66,6 +66,11 @@ export class OrderController {
     return await this.orderService.updatePaidOrder(orderID);
   }
 
+  @Put('pending')
+  async updatePendingOrder(@Query('orderID') orderID: string): Promise<any> {
+    return await this.orderService.updatePendingOrder(orderID);
+  }
+
   @Put('cancel')
   async cancelOrder(@Query('orderID') orderID: string): Promise<any> {
     return await this.orderService.cancelOrder(orderID);

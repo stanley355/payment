@@ -134,4 +134,15 @@ export class OrderService {
 
     return await this.orderRepo.save(updated_order);
   }
+
+  async updatePendingOrder(orderID: string) {
+    const order = await this.findOne(orderID);
+
+    const updated_order = {
+      ...order,
+      status: 'PENDING',
+    };
+
+    return await this.orderRepo.save(updated_order);
+  }
 }
