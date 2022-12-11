@@ -52,6 +52,10 @@ export class Order {
   @Column({ nullable: true })
   merchant_payment_link: string;
 
+  // PAID
+  // CANCELLED
+  // PENDING
+  // CONFIRMING
   @Column({ default: 'PENDING' })
   status: string;
 

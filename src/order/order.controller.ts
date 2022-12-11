@@ -70,4 +70,9 @@ export class OrderController {
   async cancelOrder(@Query('orderID') orderID: string): Promise<any> {
     return await this.orderService.cancelOrder(orderID);
   }
+
+  @Put('confirmation')
+  async confirmOrder(@Query('orderID') orderID: string): Promise<any> {
+    return await this.orderService.updateConfirmingOrder(orderID);
+  }
 }

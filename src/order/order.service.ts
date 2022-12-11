@@ -123,4 +123,15 @@ export class OrderService {
 
     return await this.orderRepo.save(updated_order);
   }
+
+  async updateConfirmingOrder(orderID: string) {
+    const order = await this.findOne(orderID);
+
+    const updated_order = {
+      ...order,
+      status: 'CONFIRMING',
+    };
+
+    return await this.orderRepo.save(updated_order);
+  }
 }
