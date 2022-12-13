@@ -41,4 +41,8 @@ export class PaymentService {
       return payment;
     }
   }
+
+  async findPaymentsByChannel(channelID: number) {
+    return await this.paymentRepo.findBy({ channel_id: channelID});
+  }
 }
